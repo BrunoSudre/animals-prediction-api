@@ -1,1 +1,1 @@
-# Animals Prediction API
+# Animals Prediction API 🐘 🐶 🐓 🐈

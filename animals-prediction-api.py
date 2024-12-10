@@ -27,9 +27,14 @@ class_names = ['dog', 'horse', 'elephant', 'butterfly', 'chicken',
                'cat', 'cow', 'sheep', 'spider', 'squirrel']
 
 
-@app.get("/classes")
+@app.get("/")
 def home():
-    return {"classes": []}
+    return "Welcome to Animals Hangman API"
+
+
+@app.get("/classes")
+def get_classes():
+    return {"classes": class_names}
 
 
 @app.post('/predict', status_code=200)
@@ -41,7 +46,7 @@ def predict(file: Annotated[bytes, File()]):
         transforms.ConvertImageDtype(torch.float),
         # transforms.Normalize(mean=[0.485, 0.456, 0.406],  # Normalize for EfficientNet
         #                      std=[0.229, 0.224, 0.225])
-        transforms.RandomHorizontalFlip(p=0.5)
+        # transforms.RandomHorizontalFlip(p=0.5)
     ])
     img_tensor = transformer(img)
 
@@ -79,7 +84,6 @@ def get_training_requests():
         if dir_path == TRAINING_REQUESTS_PATH.name:
             continue
         directories[os.path.basename(dir_path)] = len(file_names)
-        print(f"There are {len(dir_path)} directories and {len(file_names)} files in {dir_path}")
     return directories
 
 
